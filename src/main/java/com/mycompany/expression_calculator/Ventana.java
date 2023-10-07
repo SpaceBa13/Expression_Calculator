@@ -6,6 +6,7 @@ package com.mycompany.expression_calculator;
 
 import javax.swing.*;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -64,7 +65,11 @@ public class Ventana extends javax.swing.JFrame {
         send_button.setText("Enviar");
         send_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                send_buttonActionPerformed(evt);
+                try {
+                    send_buttonActionPerformed(evt);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -192,10 +197,12 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_upload_buttonActionPerformed
 
-    private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed
+    private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {//GEN-FIRST:event_send_buttonActionPerformed
         String operacion = this.expression_label.getText();
         String nombre = this.name_label.getText();
         cliente.enviar(operacion, nombre);
+        TimeUnit.SECONDS.sleep(0);
+        this.result_label.setText(cliente.operacion);
 
     }//GEN-LAST:event_send_buttonActionPerformed
 

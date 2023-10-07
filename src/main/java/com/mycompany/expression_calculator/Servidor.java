@@ -15,8 +15,6 @@ import java.net.Socket;
  * @author SpaceBa
  */
 public class Servidor implements Runnable {
-    DoublyLinkedList lista_clientes = new DoublyLinkedList();
-    Queue cola_clientes = new Queue();
     int puerto;
 
     public Servidor(int puerto) {
