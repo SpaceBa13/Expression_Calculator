@@ -90,7 +90,5 @@ public class Cliente extends Observable implements Runnable{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
     }
 }
