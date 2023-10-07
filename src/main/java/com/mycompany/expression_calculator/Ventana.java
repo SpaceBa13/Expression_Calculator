@@ -4,17 +4,28 @@
  */
 package com.mycompany.expression_calculator;
 
+import javax.swing.*;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 /**
  *
  * @author SpaceBa
  */
 public class Ventana extends javax.swing.JFrame {
+    Random puerto = new Random();
+    int puerto_propio = puerto.nextInt(5000, 10000);
+
+    Cliente cliente = new Cliente(puerto_propio);
+
 
     /**
      * Creates new form Ventana
      */
     public Ventana() {
         initComponents();
+        Thread hilo_cliente = new Thread(cliente);
+        hilo_cliente.start();
     }
 
     /**
@@ -54,7 +65,11 @@ public class Ventana extends javax.swing.JFrame {
         send_button.setText("Enviar");
         send_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                send_buttonActionPerformed(evt);
+                try {
+                    send_buttonActionPerformed(evt);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 
@@ -182,8 +197,13 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_upload_buttonActionPerformed
 
-    private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_send_buttonActionPerformed
-        // TODO add your handling code here:
+    private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {//GEN-FIRST:event_send_buttonActionPerformed
+        String operacion = this.expression_label.getText();
+        String nombre = this.name_label.getText();
+        cliente.enviar(operacion, nombre);
+        TimeUnit.SECONDS.sleep(0);
+        this.result_label.setText(cliente.operacion);
+
     }//GEN-LAST:event_send_buttonActionPerformed
 
     private void foto_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foto_buttonActionPerformed
@@ -198,11 +218,6 @@ public class Ventana extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -230,7 +245,7 @@ public class Ventana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField expression_label;
+    private JTextField expression_label;
     private javax.swing.JButton foto_button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
