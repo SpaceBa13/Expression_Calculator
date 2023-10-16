@@ -186,7 +186,6 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_expression_labelActionPerformed
 
     private void result_labelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_result_labelActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_result_labelActionPerformed
 
     private void name_labelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_name_labelActionPerformed
@@ -198,11 +197,23 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_upload_buttonActionPerformed
 
     private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {//GEN-FIRST:event_send_buttonActionPerformed
+        String cadena = "(1+2/5)/(4*3+2)";
+        E_Tree arbol = new E_Tree(cadena);
+        String prefix = arbol.getExpression(0);
+        String postfix = arbol.getExpression(1);
+        Double expression = arbol.EvaluateExpression();
+        System.out.print(prefix + "\n");
+        System.out.print(postfix + "\n");
+        System.out.print(expression + "\n");
+
+
         String operacion = this.expression_label.getText();
         String nombre = this.name_label.getText();
         cliente.enviar(operacion, nombre);
         TimeUnit.SECONDS.sleep(0);
         this.result_label.setText(cliente.operacion);
+
+
 
     }//GEN-LAST:event_send_buttonActionPerformed
 

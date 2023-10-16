@@ -16,6 +16,7 @@ public class E_Tree {
     }
 
     public void create_Node(Object dato){
+
         this.root = new Tree_Node(dato);
     }
 
@@ -29,7 +30,19 @@ public class E_Tree {
         return this.root == null;
     }
 
-    private String preorder(Tree_Node sub_tree, String c){
+    public String getExpression(int a){
+        String cadena = "";
+        switch (a){
+            case 0:
+                cadena = preorder(this.root, cadena);
+                break;
+            case 1:
+                cadena = inorder(this.root, cadena);
+        }
+        return cadena;
+    }
+
+    public String preorder(Tree_Node sub_tree, String c){
         String cadena;
         cadena = "";
         if(sub_tree != null){
@@ -38,7 +51,7 @@ public class E_Tree {
         return cadena;
     }
 
-    private String inorder(Tree_Node sub_tree, String c){
+    public String inorder(Tree_Node sub_tree, String c){
         String cadena;
         cadena = "";
         if(sub_tree != null){
@@ -78,6 +91,7 @@ public class E_Tree {
             case '+':
             case '-':
                 result = true;
+                break;
             default:
                 result = false;
         }
@@ -125,8 +139,42 @@ public class E_Tree {
                 }
             }
         }
+        while(!StackOperators.isEmpty()){
+            op2 = StackExpressions.pop();
+            op1 = StackExpressions.pop();
+            op = StackOperators.pop();
+            op = create_Subtree(op2, op1, op);
+            StackExpressions.insert(op);
+        }
+        op = StackExpressions.pop();
+        return op;
 
+    }
+    public double EvaluateExpression(){
+        return evaluate(root);
+    }
 
+    public double evaluate(Tree_Node subtree){
+        double acum = 0;
+        if(!isOperator(subtree.data.toString().charAt(0))){
+            return  Double.parseDouble(subtree.data.toString());
+        }else{
+            switch (subtree.data.toString().charAt(0)){
+                case '*':
+                    acum += evaluate(subtree.izquierdo) * evaluate(subtree.derecho);
+                    break;
+                case '/':
+                    acum += evaluate(subtree.izquierdo) / evaluate(subtree.derecho);
+                    break;
+                case '+':
+                    acum += evaluate(subtree.izquierdo) + evaluate(subtree.derecho);
+                    break;
+                case '-':
+                    acum += evaluate(subtree.izquierdo) - evaluate(subtree.derecho);
+                    break;
+            }
+        }
+        return acum;
     }
 
 }
