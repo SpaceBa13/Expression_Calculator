@@ -197,13 +197,11 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_upload_buttonActionPerformed
 
     private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {//GEN-FIRST:event_send_buttonActionPerformed
-        String cadena = "((1+2)-(21+1))+(19)";
+        String cadena = "(*1*3)";
         E_Tree arbol = new E_Tree(cadena);
-        String prefix = arbol.getExpression(0);
-        String postfix = arbol.getExpression(1);
+        String inorder = arbol.getExpression(1);
         Double expression = arbol.EvaluateExpression();
-        System.out.print(prefix + "\n");
-        System.out.print(postfix + "\n");
+        System.out.print(inorder + "\n");
         System.out.print(expression + "\n");
 
 

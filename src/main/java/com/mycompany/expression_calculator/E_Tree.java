@@ -137,6 +137,10 @@ public class E_Tree {
                         StackOperators.pop();
                         break;
                     default:
+                        if (valor.equals("")){
+                            token1 = new Tree_Node(0);
+                            StackExpressions.insert(token1);
+                        }
                         while(!StackOperators.isEmpty() && priority(caracter_evaludado) <= priority(StackOperators.get_head().data.toString().charAt(0))){
                             op2 = StackExpressions.pop();
                             op1 = StackExpressions.pop();
@@ -145,8 +149,7 @@ public class E_Tree {
                             StackExpressions.insert(op);
                         }
                         StackOperators.insert(token2);
-                }
-                valor = "";
+                }valor = "";
             }
         }
         while(!StackOperators.isEmpty()){
@@ -171,16 +174,33 @@ public class E_Tree {
         }else{
             switch (subtree.data.toString().charAt(0)){
                 case '*':
-                    acum = acum + evaluate(subtree.izquierdo) * evaluate(subtree.derecho);
+                    if (subtree.izquierdo == null) {
+                        acum = acum + (1 * evaluate(subtree.derecho));
+                    }else{
+                        acum = acum + (evaluate(subtree.izquierdo) * evaluate(subtree.derecho));
+                    }
                     break;
                 case '/':
                     acum = acum + evaluate(subtree.izquierdo) / evaluate(subtree.derecho);
                     break;
                 case '+':
-                    acum = acum + evaluate(subtree.izquierdo) + evaluate(subtree.derecho);
+                    if (subtree.izquierdo == null){
+                        acum = acum + evaluate(subtree.derecho);
+                    }else if (subtree.derecho == null){
+                        acum = acum + evaluate(subtree.izquierdo);
+                    }else{
+                        acum = acum + evaluate(subtree.izquierdo) + evaluate(subtree.derecho);
+                    }
                     break;
                 case '-':
-                    acum = acum + evaluate(subtree.izquierdo) - evaluate(subtree.derecho);
+                    Tree_Node Neutro = new Tree_Node(0);
+                    if (subtree.izquierdo == null){
+                        acum = acum + evaluate(Neutro) - evaluate(subtree.derecho);
+                    }else if (subtree.derecho == null){
+                        acum = acum + evaluate(subtree.izquierdo) - evaluate(Neutro);
+                    }else{
+                        acum = acum + evaluate(subtree.izquierdo) - evaluate(subtree.derecho);
+                    }
                     break;
             }
         }

@@ -10,4 +10,12 @@ public class Tree_Node {
         this.izquierdo = null;
         this.derecho = null;
     }
+
+    public Tree_Node getIzquierdo() {
+        return izquierdo;
+    }
+
+    public Tree_Node getDerecho() {
+        return derecho;
+    }
 }
