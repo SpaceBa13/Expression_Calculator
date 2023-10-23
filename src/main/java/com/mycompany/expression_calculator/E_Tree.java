@@ -108,12 +108,17 @@ public class E_Tree {
         StackOperators = new Tree_Stack();
         StackExpressions = new Tree_Stack();
         char caracter_evaludado;
+        char caracter_anterior;
         String valor = "";
 
         for(int i = 0; i < cadena.length(); i++){
+            caracter_anterior = '0';
             caracter_evaludado = cadena.charAt(i);
             token1 = new Tree_Node(valor);
             token2 = new Tree_Node(caracter_evaludado);
+            if(i >= 1){
+                caracter_anterior = cadena.charAt(i-1);
+            }
             if(!isOperator(caracter_evaludado)){
                 valor += caracter_evaludado;
             }
@@ -137,9 +142,15 @@ public class E_Tree {
                         StackOperators.pop();
                         break;
                     default:
-                        if (valor.equals("")){
-                            token1 = new Tree_Node(0);
-                            StackExpressions.insert(token1);
+                        if (caracter_evaludado == '+') {
+                        }
+                        if (caracter_evaludado == '-') {
+                            if (!(caracter_anterior == ')')) {
+                                if (valor.equals("")) {
+                                    token1 = new Tree_Node(0);
+                                    StackExpressions.insert(token1);
+                                }
+                            }
                         }
                         while(!StackOperators.isEmpty() && priority(caracter_evaludado) <= priority(StackOperators.get_head().data.toString().charAt(0))){
                             op2 = StackExpressions.pop();
