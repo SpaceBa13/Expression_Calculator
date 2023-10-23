@@ -63,6 +63,9 @@ public class E_Tree {
     private int priority(char c){
         int p = 100;
         switch (c){
+            case '^':
+                p = 30;
+                break;
             case '*':
                 p = 20;
                 break;
@@ -86,6 +89,7 @@ public class E_Tree {
         switch (c){
             case '(':
             case ')':
+            case '^':
             case '*':
             case '/':
             case '+':
@@ -97,6 +101,7 @@ public class E_Tree {
         }
         return result;
     }
+
     private Tree_Node createTree(String cadena){
         Tree_Stack StackOperators;
         Tree_Stack StackExpressions;
@@ -122,6 +127,7 @@ public class E_Tree {
             if(!isOperator(caracter_evaludado)){
                 valor += caracter_evaludado;
             }
+
             else{
                 if(!valor.equals("")){
                     StackExpressions.insert(token1);
