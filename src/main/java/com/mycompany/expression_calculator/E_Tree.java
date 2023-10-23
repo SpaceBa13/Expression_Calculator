@@ -72,6 +72,8 @@ public class E_Tree {
             case '/':
                 p = 20;
                 break;
+            case '%':
+                p = 20;
             case '+':
                 p = 10;
                 break;
@@ -92,6 +94,7 @@ public class E_Tree {
             case '^':
             case '*':
             case '/':
+            case '%':
             case '+':
             case '-':
                 result = true;
@@ -190,6 +193,9 @@ public class E_Tree {
             return  Double.parseDouble(subtree.data.toString());
         }else{
             switch (subtree.data.toString().charAt(0)){
+                case '^':
+                    acum = acum + Math.pow(evaluate(subtree.izquierdo), evaluate(subtree.derecho));
+                    break;
                 case '*':
                     if (subtree.izquierdo == null) {
                         acum = acum + (1 * evaluate(subtree.derecho));
@@ -199,6 +205,9 @@ public class E_Tree {
                     break;
                 case '/':
                     acum = acum + evaluate(subtree.izquierdo) / evaluate(subtree.derecho);
+                    break;
+                case '%':
+                    acum = acum + evaluate(subtree.izquierdo) % evaluate(subtree.derecho);
                     break;
                 case '+':
                     if (subtree.izquierdo == null){
