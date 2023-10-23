@@ -205,6 +205,16 @@ public class Ventana extends javax.swing.JFrame {
         System.out.print(inorder + "\n");
         System.out.print(expression + "\n");
 
+        String cadenal = "";
+        String evaluarl = "(" + cadenal + ")";
+        L_Tree arboll = new L_Tree(evaluarl);
+        String inorderl = arboll.getExpression(1);
+        Boolean expressionl = arboll.EvaluateExpression();
+        System.out.print(inorderl + "\n");
+        System.out.print(expressionl + "\n");
+
+
+
 
         String operacion = this.expression_label.getText();
         String nombre = this.name_label.getText();
