@@ -6,6 +6,7 @@ package com.mycompany.expression_calculator;
 
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -15,6 +16,11 @@ public class Paquete_Datos implements Serializable {
     int puerto_propio;
     String nombre;
     String operacion;
+    Date fecha;
+
+    Boolean tipo;
+
+
 
     public int getPuerto_propio() {
         return puerto_propio;
@@ -39,4 +45,13 @@ public class Paquete_Datos implements Serializable {
     public void setOperacion(String operacion) {
         this.operacion = operacion;
     }
+
+    public Date getFecha() {return fecha;}
+
+    public void setFecha(Date fecha) {this.fecha = fecha;}
+
+    public Boolean getTipo() {return tipo;}
+
+    public void setTipo(Boolean tipo) {this.tipo = tipo;}
 }
+

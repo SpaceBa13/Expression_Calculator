@@ -5,6 +5,7 @@
 package com.mycompany.expression_calculator;
 
 import javax.swing.*;
+import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -197,30 +198,52 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_upload_buttonActionPerformed
 
     private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {//GEN-FIRST:event_send_buttonActionPerformed
-        String cadena = "(2.5)^(2+1)";
-        String evaluar = "(" + cadena + ")";
-        E_Tree arbol = new E_Tree(evaluar);
-        String inorder = arbol.getExpression(1);
-        Double expression = arbol.EvaluateExpression();
-        System.out.print(inorder + "\n");
-        System.out.print(expression + "\n");
+        String name = this.name_label.getText();
+        String read_expression = this.expression_label.getText();
+        String expression = "(" + read_expression + ")";
+        Date date = new Date();
+        Boolean type = false;
+        cliente.setFecha(date);
+        cliente.setOperacion(expression);
+        cliente.setNombre(name);
+        cliente.respuesta = false;
 
-        String cadenal = "";
-        String evaluarl = "(" + cadenal + ")";
-        L_Tree arboll = new L_Tree(evaluarl);
-        String inorderl = arboll.getExpression(1);
-        Boolean expressionl = arboll.EvaluateExpression();
-        System.out.print(inorderl + "\n");
-        System.out.print(expressionl + "\n");
+        if(!(this.expression_label.getText().equals(""))){
+            char caracter_evaluado;
+            type = false;
+            for (int i = 0; i < expression.length(); i++){
+                caracter_evaluado = expression.charAt(i);
+                if(caracter_evaluado == 'v' || caracter_evaluado == 'f'){
+                    type = true;
+                    break;
+                }
+            }
 
-
-
-
-        String operacion = this.expression_label.getText();
-        String nombre = this.name_label.getText();
-        cliente.enviar(operacion, nombre);
-        TimeUnit.SECONDS.sleep(0);
+        }
+        cliente.enviar(expression, name, date, type);
+        while(cliente.respuesta == false){
+            this.result_label.setText("Calculado resultado");
+        }
+        cliente.respuesta = false;
         this.result_label.setText(cliente.operacion);
+
+
+//        String cadena = "2.5+3.5";
+//        String evaluar = "(" + cadena + ")";
+//        E_Tree arbol = new E_Tree(evaluar);
+//        String inorder = arbol.getExpression(1);
+//        Double expressionm = arbol.EvaluateExpression();
+//        System.out.print(inorder + "\n");
+//        System.out.print(expressionm + "\n");
+////f&v^v|(v(~v))
+//        String cadenal = "f&v^v|(v^v)";
+//        String evaluarl = "(" + cadenal + ")";
+//        L_Tree arboll = new L_Tree(evaluarl);
+//        String inorderl = arboll.getExpression(1);
+//        Boolean expressionl = arboll.EvaluateExpression();
+//        System.out.print(inorderl + "\n");
+//        System.out.print(expressionl + "\n");
+
 
 
 

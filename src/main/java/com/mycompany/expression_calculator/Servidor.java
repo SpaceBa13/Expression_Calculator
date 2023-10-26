@@ -28,6 +28,20 @@ public class Servidor implements Runnable {
         System.out.println("En espera.....");
     }
 
+    public double crear_arbol_aritmetico(String expression){
+        E_Tree arbol = new E_Tree(expression);
+        Double result = arbol.EvaluateExpression();
+        return result;
+    }
+
+    public boolean crear_arbol_logico(String expression){
+        L_Tree arboll = new L_Tree(expression);
+        Boolean result = arboll.EvaluateExpression();
+        return result;
+    }
+
+
+
     public void enviar(String IP, Paquete_Datos entrada, int puerto){
         try {
             Socket reenvio = new Socket(IP, puerto);
@@ -43,6 +57,7 @@ public class Servidor implements Runnable {
             throw new RuntimeException(e);
         }
     }
+
 
     @Override
     public void run() {
@@ -66,7 +81,19 @@ public class Servidor implements Runnable {
 
                 int puerto_cliente = paquete_entrante.getPuerto_propio();
 
-                enviar("127.0.0.1", paquete_entrante, puerto_cliente);
+                if(paquete_entrante.getTipo() == true){
+                    Boolean result = crear_arbol_logico(paquete_entrante.getOperacion());
+                    String show_result = result.toString();
+                    paquete_entrante.setOperacion(show_result);
+                    enviar("127.0.0.1", paquete_entrante, puerto_cliente);
+                }else{
+                    Double result = crear_arbol_aritmetico(paquete_entrante.getOperacion());
+                    String show_result = result.toString();
+                    paquete_entrante.setOperacion(show_result);
+                    enviar("127.0.0.1", paquete_entrante, puerto_cliente);
+                }
+
+
 
                 recibir_datos.close();
             }

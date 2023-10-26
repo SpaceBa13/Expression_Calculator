@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 import java.util.Observable;
 
 /**
@@ -24,6 +25,11 @@ public class Cliente extends Observable implements Runnable{
 
     String operacion;
 
+    Date fecha;
+
+    Boolean respuesta;
+
+
     public Cliente(int puerto_propio, String nombre){
         this.puerto_propio = puerto_propio;
         this.nombre = nombre;
@@ -33,7 +39,39 @@ public class Cliente extends Observable implements Runnable{
         this.puerto_propio = puerto_propio;
     }
 
-    public void enviar(String expresion, String nombre){
+    public int getPuerto_propio() {
+        return puerto_propio;
+    }
+
+    public void setPuerto_propio(int puerto_propio) {
+        this.puerto_propio = puerto_propio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getOperacion() {
+        return operacion;
+    }
+
+    public void setOperacion(String operacion) {
+        this.operacion = operacion;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public void enviar(String expresion, String nombre, Date fecha, Boolean tipo){
         String IP = "127.0.0.1";
         try {
             Socket socket = new Socket(IP, 11111);
@@ -42,6 +80,8 @@ public class Cliente extends Observable implements Runnable{
             envio.setNombre(nombre);
             envio.setOperacion(expresion);
             envio.setPuerto_propio(puerto_propio);
+            envio.setFecha(fecha);
+            envio.setTipo(tipo);
 
             /*Json*/
             ObjectMapper envio_json = new ObjectMapper();
@@ -80,10 +120,11 @@ public class Cliente extends Observable implements Runnable{
                 nombre_recibido = (String) paquete_entrante.getNombre();
                 resultado_recibido = paquete_entrante.getOperacion();
 
-                this.nombre = nombre_recibido;
                 this.operacion = resultado_recibido;
+                this.respuesta = true;
 
-                System.out.println("Mensaje recibido:" + nombre_recibido + resultado_recibido);
+
+                System.out.println("Mensaje recibido:" + nombre_recibido + " ," + " resultado: " + resultado_recibido);
 
                 recibir_datos.close();
             }
