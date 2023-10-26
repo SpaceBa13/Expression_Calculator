@@ -227,6 +227,8 @@ public class Ventana extends javax.swing.JFrame {
         cliente.respuesta = false;
         this.result_label.setText(cliente.operacion);
 
+        cliente.writeCSV(name, expression, date, 3838);
+
 
 //        String cadena = "2.5+3.5";
 //        String evaluar = "(" + cadena + ")";
@@ -254,7 +256,9 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_foto_buttonActionPerformed
 
     private void request_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_request_buttonActionPerformed
-        // TODO add your handling code here:
+        CSV_Manage csvread = new CSV_Manage();
+        csvread.readCSV("file.csv");
+
     }//GEN-LAST:event_request_buttonActionPerformed
 
     /**
