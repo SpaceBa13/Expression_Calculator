@@ -52,18 +52,18 @@ public class Ventana extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Resultado");
+        jLabel4.setText("Result");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        upload_button.setText("Subir una foto");
+        upload_button.setText("Upload a picture");
         upload_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 upload_buttonActionPerformed(evt);
             }
         });
 
-        send_button.setText("Enviar");
+        send_button.setText("Send");
         send_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 try {
@@ -84,9 +84,9 @@ public class Ventana extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("Name:");
 
-        foto_button.setText("Tomar una foto");
+        foto_button.setText("Take a picture");
         foto_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 foto_buttonActionPerformed(evt);
@@ -94,7 +94,7 @@ public class Ventana extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel3.setText("Resultado");
+        jLabel3.setText("Result");
 
         result_label.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +102,7 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
-        request_button.setText("Consultar");
+        request_button.setText("Consult");
         request_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 request_buttonActionPerformed(evt);
@@ -115,8 +115,8 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Ingrese la expresion que desea evaluar:");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel5.setText("Enter the expression you want to evaluate:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,7 +218,8 @@ public class Ventana extends javax.swing.JFrame {
                     break;
                 }
             }
-
+        }else{
+            this.expression_label.setText("No valid");
         }
         cliente.enviar(expression, name, date, type);
         while(cliente.respuesta == false){
@@ -227,24 +228,7 @@ public class Ventana extends javax.swing.JFrame {
         cliente.respuesta = false;
         this.result_label.setText(cliente.operacion);
 
-
-//        String cadena = "2.5+3.5";
-//        String evaluar = "(" + cadena + ")";
-//        E_Tree arbol = new E_Tree(evaluar);
-//        String inorder = arbol.getExpression(1);
-//        Double expressionm = arbol.EvaluateExpression();
-//        System.out.print(inorder + "\n");
-//        System.out.print(expressionm + "\n");
-////f&v^v|(v(~v))
-//        String cadenal = "f&v^v|(v^v)";
-//        String evaluarl = "(" + cadenal + ")";
-//        L_Tree arboll = new L_Tree(evaluarl);
-//        String inorderl = arboll.getExpression(1);
-//        Boolean expressionl = arboll.EvaluateExpression();
-//        System.out.print(inorderl + "\n");
-//        System.out.print(expressionl + "\n");
-
-
+        System.out.println(cliente.fecha);
 
 
     }//GEN-LAST:event_send_buttonActionPerformed
