@@ -23,7 +23,7 @@ public class CSV_Manage {
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            printWriter.println(nombre + "," + operacion + "," + fecha + "," + respuesta);
+            printWriter.println("Nombre: "+ nombre + "\n" + "Expresión: " + operacion + "\n" + "Fecha: " + fecha + "\n" + "Resultado: " + respuesta + "\n");
             printWriter.flush();
             printWriter.close();
         } catch (IOException e) {
@@ -49,7 +49,7 @@ public class CSV_Manage {
 
     public void imprimirLinea() {
         for (int i = 0; i < partes.length; i++) {
-            System.out.println(partes[i] + " / ");
+            System.out.println(partes[i] + "");
         }
     }
 }

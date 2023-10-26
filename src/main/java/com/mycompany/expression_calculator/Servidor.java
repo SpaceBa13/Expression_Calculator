@@ -65,7 +65,7 @@ public class Servidor implements Runnable {
         String nombre_recibido, resultado_recibido;
         Paquete_Datos paquete_datos = new Paquete_Datos();
         try {
-            ServerSocket servidor = new ServerSocket(11111);
+            ServerSocket servidor = new ServerSocket(12111);
             Socket recibir_datos;
             Paquete_Datos paquete_entrante;
             String lectura_json;
