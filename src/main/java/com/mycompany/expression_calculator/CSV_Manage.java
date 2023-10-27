@@ -18,32 +18,26 @@ public class CSV_Manage {
     private String linea;
     private String partes[];
 
-    void writeCSV(String file, String nombre, String operacion, Date fecha, String respuesta) {
+    void writeCSV(String file, String nombre, String operacion, Date fecha, int respuesta) {
         try {
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            printWriter.println("Nombre: "+ nombre + ", " + "Expresión: " + operacion + ", " + "Fecha: " + fecha + ", " + "Resultado: " + respuesta);
+            printWriter.println("Nombre: "+ nombre + "\n" + "Expresión: " + operacion + "\n" + "Fecha: " + fecha + "\n" + "Resultado: " + respuesta + "\n");
             printWriter.flush();
             printWriter.close();
         } catch (IOException e) {
             System.out.println(e);
-
         }
     }
 
-    public void readCSV(String file, String nombre) {
+    public void readCSV(String file) {
         try {
-            if (linea.contains("Nombre: " + nombre)) {
-                lector = new BufferedReader(new FileReader(file));
-                while ((linea = lector.readLine()) != null) {
-                    partes = linea.split(" , ");
-                    System.out.println(linea);
-                    // Verifica si la línea contiene el nombre buscado
-
-                        imprimirLinea();
-                        System.out.println();
-                }
+            lector = new BufferedReader(new FileReader(file));
+            while ((linea = lector.readLine()) != null) {
+                partes = linea.split(" , ");
+                imprimirLinea();
+                System.out.println();
             }
             lector.close();
             linea = null;
@@ -58,8 +52,6 @@ public class CSV_Manage {
             System.out.println(partes[i] + "");
         }
     }
-    //public void get_column{
-    //}
 }
 //    String generateRandomName() {
 //        String[] names = {"Alice", "Bob", "Charlie", "David", "Emma", "Frank", "Grace", "Hannah"};

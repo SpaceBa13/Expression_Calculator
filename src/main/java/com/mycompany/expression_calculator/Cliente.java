@@ -97,7 +97,10 @@ public class Cliente extends Observable implements Runnable{
             throw new RuntimeException(e);
         }
     }
-
+    public void writeCSV(String nombre, String operacion, Date fecha, int respuesta) {
+        CSV_Manage csv = new CSV_Manage();
+        csv.writeCSV("file.csv", nombre, operacion, fecha, respuesta);
+    }
     @Override
     public void run() {
         String IP = "127.0.0.1";
