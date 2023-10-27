@@ -218,9 +218,6 @@ public class Ventana extends javax.swing.JFrame {
                 }
             }
         }
-
-        cliente.writeCSV(name, expression, date, 232);  //Cambiar lo del resultado
-
         cliente.enviar(expression, name, date, type);
         while(cliente.respuesta == false){
             this.result_label.setText("Calculado resultado");
@@ -256,7 +253,8 @@ public class Ventana extends javax.swing.JFrame {
 
     private void request_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_request_buttonActionPerformed
         CSV_Manage csvread = new CSV_Manage();
-        csvread.readCSV("file.csv");
+        String name = this.name_label.getText();
+        csvread.readCSV("file.csv", name);
     }//GEN-LAST:event_request_buttonActionPerformed
 
     /**

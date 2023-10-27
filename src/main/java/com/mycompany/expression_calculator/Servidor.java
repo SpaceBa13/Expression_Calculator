@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 
 /**
  * @author SpaceBa
@@ -40,7 +41,10 @@ public class Servidor implements Runnable {
         return result;
     }
 
-
+    public void writeCSV(String nombre, String operacion, Date fecha, String respuesta){
+        CSV_Manage csv = new CSV_Manage();
+        csv.writeCSV("file.csv", nombre, operacion, fecha, respuesta);
+    }
 
     public void enviar(String IP, Paquete_Datos entrada, int puerto){
         try {
@@ -57,7 +61,6 @@ public class Servidor implements Runnable {
             throw new RuntimeException(e);
         }
     }
-
 
     @Override
     public void run() {
@@ -86,15 +89,15 @@ public class Servidor implements Runnable {
                     String show_result = result.toString();
                     paquete_entrante.setOperacion(show_result);
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
+                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), show_result);
                 }else{
                     Double result = crear_arbol_aritmetico(paquete_entrante.getOperacion());
                     String show_result = result.toString();
                     paquete_entrante.setOperacion(show_result);
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
+                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), String.valueOf(Integer.parseInt(show_result)));
                 }
-
-
-
+                System.out.println("oal");
                 recibir_datos.close();
             }
         } catch (IOException e) {
