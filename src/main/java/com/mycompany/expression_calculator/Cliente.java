@@ -15,11 +15,20 @@ import java.util.Observable;
 
 /**
  *
+ * La clase cliente sera por la cual la interfaz grafica se comunicara con el servidor
+ * enviandole las expresiones para ser evaluadas, y este recibira la respuesta
+ * del servidor
  * @author SpaceBa
  */
 
 public class Cliente extends Observable implements Runnable{
-
+    /**
+     * El puerto_propio representara el puerto del cliente
+     * el nombre representara el nombre del usuario en sesion
+     * la operacion representara tanto la operacion enviada como el resultado recibido
+     * la fecha, representara la fecha de envio del paquete
+     * respuesta representara si el resultado de la peticion ya fue recibido
+     */
     int puerto_propio;
     String nombre;
 
@@ -29,48 +38,56 @@ public class Cliente extends Observable implements Runnable{
 
     Boolean respuesta;
 
-
+    /**
+     * Constructor
+     * @param puerto_propio
+     * @param nombre
+     */
     public Cliente(int puerto_propio, String nombre){
         this.puerto_propio = puerto_propio;
         this.nombre = nombre;
     }
 
+    /**
+     * Constructor
+     * @param puerto_propio
+     */
     public Cliente(int puerto_propio){
         this.puerto_propio = puerto_propio;
     }
 
-    public int getPuerto_propio() {
-        return puerto_propio;
-    }
-
-    public void setPuerto_propio(int puerto_propio) {
-        this.puerto_propio = puerto_propio;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
+    /**
+     * Asigna el nombre segun la informacion dada
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public String getOperacion() {
-        return operacion;
-    }
-
+    /**
+     * Asigna la operacion segun el argumento dado
+     * @param operacion
+     */
     public void setOperacion(String operacion) {
         this.operacion = operacion;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
+    /**
+     * Asigna la fecha segun el argumento dado
+     * @param fecha
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     * Metodo encargado del envio de los datos al servidor, este gestiona la creacion de una instacia de la calse Paquete de Datos
+     * para convetir la infomacion que se desea enviar en formato Json
+     * @param expresion Representa la expresion que se desea evaluar
+     * @param nombre Representa el nombre del usuario en sesion
+     * @param fecha Representara la fecha de envio del paquete
+     * @param tipo Representa si la operacion es booleana o aritmetica
+     */
     public void enviar(String expresion, String nombre, Date fecha, Boolean tipo){
         String IP = "127.0.0.1";
         try {
@@ -97,13 +114,14 @@ public class Cliente extends Observable implements Runnable{
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Metodo que mantendra en ejeuccion el hilo
+     * Encargado del recibimiento de paquetes
+     */
     @Override
     public void run() {
-        String IP = "127.0.0.1";
         String nombre_recibido, resultado_recibido;
 
-        Paquete_Datos paquete_datose = new Paquete_Datos();
         try {
             ServerSocket servidor_cliente = new ServerSocket(puerto_propio);
             Socket recibir_datos;

@@ -13,14 +13,24 @@ import java.net.Socket;
 
 /**
  * @author SpaceBa
+ * Esta clase sera el servidor que maneje la logica de la creacion de los arboles
+ * tiene como atributo unicamente el puerto
  */
 public class Servidor implements Runnable {
     int puerto;
 
+    /**
+     * Constructor
+     * @param puerto
+     */
     public Servidor(int puerto) {
         this.puerto = puerto;
     }
 
+    /**
+     * Metodo encargado de crear una instancia del servidor y crear un hilo para mantenerlo activo
+     * @param args
+     */
     public static void main(String[] args) {
         Servidor server = new Servidor(10000);
         Thread hilo_servidor = new Thread(server);
@@ -28,20 +38,33 @@ public class Servidor implements Runnable {
         System.out.println("En espera.....");
     }
 
+    /**
+     * Metodo que se encarga de crear un arbol de expression aritmetico
+     * @param expression repesenta la expresion que se creara
+     * @return retorna el resultado de la operacion
+     */
     public double crear_arbol_aritmetico(String expression){
         E_Tree arbol = new E_Tree(expression);
         Double result = arbol.EvaluateExpression();
         return result;
     }
-
+    /**
+     * Metodo que se encarga de crear un arbol de expression logico
+     * @param expression repesenta la expresion que se creara
+     * @return retorna el resultado de la operacion
+     */
     public boolean crear_arbol_logico(String expression){
         L_Tree arboll = new L_Tree(expression);
         Boolean result = arboll.EvaluateExpression();
         return result;
     }
 
-
-
+    /**
+     * Metodo encargada de enviar el paquete de datos al cliente
+     * @param IP Sera la IP del cliente
+     * @param entrada Sera el paquete de datos a enviar
+     * @param puerto Sera el puerto del cliente
+     */
     public void enviar(String IP, Paquete_Datos entrada, int puerto){
         try {
             Socket reenvio = new Socket(IP, puerto);
@@ -58,7 +81,10 @@ public class Servidor implements Runnable {
         }
     }
 
-
+    /**
+     * Metodo que mantendra en ejeuccion el hilo
+     * Encargado del recibimiento de paquetes
+     */
     @Override
     public void run() {
         String IP = "127.0.0.1";

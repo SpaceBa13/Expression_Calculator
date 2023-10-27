@@ -2,34 +2,46 @@ package com.mycompany.expression_calculator;
 
 import com.sun.source.tree.Tree;
 
+/**
+ * La clase E_Tree representara el arbol de expression para operaciones aritmeticas
+ */
 public class E_Tree {
     Tree_Node root;
 
+    /**
+     * Constructor
+     */
     public E_Tree(){
         this.root = null;
     }
+
+    /**
+     * Constructor con expresion definida
+     * @param Expression
+     */
     public E_Tree(String Expression){
         this.root = createTree(Expression);
     }
-    public void reboot_Tree(){
-        this.root = null;
-    }
 
-    public void create_Node(Object dato){
-
-        this.root = new Tree_Node(dato);
-    }
-
+    /**
+     * Metodo que crea un sub arbol
+     * @param dato2 Hijo derecho del sub arbol
+     * @param dato1 Hijo izquierdo del sub arbol
+     * @param operator Root del sub arbol
+     * @return Retorna el Root del sub arbol
+     */
     public Tree_Node create_Subtree(Tree_Node dato2, Tree_Node dato1, Tree_Node operator){
         operator.izquierdo = dato1;
         operator.derecho = dato2;
         return operator;
     }
 
-    public boolean isEmpty(){
-        return this.root == null;
-    }
 
+    /**
+     * Metodo que recorre el arbol de distintas formas
+     * @param a Es el indicador de como se va a recorrer el arbol
+     * @return Retorna una cadena con el recorrido en el orden seleccionado
+     */
     public String getExpression(int a){
         String cadena = "";
         switch (a){
@@ -42,6 +54,12 @@ public class E_Tree {
         return cadena;
     }
 
+    /**
+     * Recorrido en preorden
+     * @param sub_tree Sub arbol a recorrer
+     * @param c Representa la variable donde se guardan los datos del recorrido
+     * @return Retorna el resultado del recorrido
+     */
     public String preorder(Tree_Node sub_tree, String c){
         String cadena;
         cadena = "";
@@ -51,6 +69,12 @@ public class E_Tree {
         return cadena;
     }
 
+    /**
+     * Recorrido inorden
+     * @param sub_tree Sub arbol a recorrer
+     * @param c Representa la variable donde se guardan los datos del recorrido
+     * @return Retorna el resultado del recorrido
+     */
     public String inorder(Tree_Node sub_tree, String c){
         String cadena;
         cadena = "";
@@ -60,6 +84,11 @@ public class E_Tree {
         return cadena;
     }
 
+    /**
+     * Metodo que asigna una prioridad distinta segun el operador que le ingrese
+     * @param c Operador
+     * @return Retorna la prioridad
+     */
     private int priority(char c){
         int p = 100;
         switch (c){
@@ -86,6 +115,11 @@ public class E_Tree {
         return p;
     }
 
+    /**
+     * Metodo que verifica si un caracater es un operador
+     * @param c Dato de analizar
+     * @return Retorna un booleano segun el resultado de si es o no un operador
+     */
     public boolean isOperator(char c){
         boolean result;
         switch (c){
@@ -105,6 +139,11 @@ public class E_Tree {
         return result;
     }
 
+    /**
+     * Crea el arbol de expresion
+     * @param cadena Representa la expresion a convertir
+     * @return
+     */
     private Tree_Node createTree(String cadena){
         Tree_Stack StackOperators;
         Tree_Stack StackExpressions;
@@ -183,10 +222,19 @@ public class E_Tree {
         return op;
 
     }
+    /**
+     * Llama al metodo evaluate con el root del arbol para que lo evalua y retorne un resultado numerico
+     * @return
+     */
     public double EvaluateExpression(){
         return evaluate(root);
     }
 
+    /**
+     * Evgalua el arbol recorriendo cada uno de sus subarboles hasta que ya no hayan mas
+     * @param subtree Es el sub arbol que se esta evaluando
+     * @return Retorna el resultado total del arbol
+     */
     public double evaluate(Tree_Node subtree){
         double acum = 0;
         if(!isOperator(subtree.data.toString().charAt(0))){

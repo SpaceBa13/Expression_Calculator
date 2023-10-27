@@ -197,6 +197,11 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_upload_buttonActionPerformed
 
+    /**
+     * Metodo que realiza las acciones cuando el boton enviar es presionado
+     * @param evt
+     * @throws InterruptedException
+     */
     private void send_buttonActionPerformed(java.awt.event.ActionEvent evt) throws InterruptedException {//GEN-FIRST:event_send_buttonActionPerformed
         String name = this.name_label.getText();
         String read_expression = this.expression_label.getText();
