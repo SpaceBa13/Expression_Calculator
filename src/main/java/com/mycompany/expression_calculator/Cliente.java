@@ -141,9 +141,6 @@ public class Cliente extends Observable implements Runnable{
                 this.operacion = resultado_recibido;
                 this.respuesta = true;
 
-
-                System.out.println("Mensaje recibido:" + nombre_recibido + " ," + " resultado: " + resultado_recibido);
-
                 recibir_datos.close();
             }
         } catch (IOException e) {

@@ -226,6 +226,7 @@ public class Ventana extends javax.swing.JFrame {
         }else{
             this.expression_label.setText("No valid");
         }
+
         cliente.enviar(expression, name, date, type);
         while(cliente.respuesta == false){
             this.result_label.setText("Calculado resultado");
@@ -243,7 +244,8 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_foto_buttonActionPerformed
 
     private void request_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_request_buttonActionPerformed
-        // TODO add your handling code here:
+        CSV_Manage csvread = new CSV_Manage();
+        csvread.readCSV("file.csv");
     }//GEN-LAST:event_request_buttonActionPerformed
 
     /**
