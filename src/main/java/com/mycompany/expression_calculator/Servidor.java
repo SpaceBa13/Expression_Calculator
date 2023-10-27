@@ -117,13 +117,13 @@ public class Servidor implements Runnable {
                     Boolean result = crear_arbol_logico(paquete_entrante.getOperacion());
                     String show_result = result.toString();
                     paquete_entrante.setOperacion(show_result);
-                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), show_result);
+//                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), show_result);
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
                 }else{
                     Double result = crear_arbol_aritmetico(paquete_entrante.getOperacion());
                     String show_result = result.toString();
                     paquete_entrante.setOperacion(show_result);
-                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), String.valueOf(Integer.parseInt(show_result)));
+//                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), String.valueOf(Integer.parseInt(show_result)));
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
                 }
 
