@@ -221,7 +221,6 @@ public class Ventana extends javax.swing.JFrame {
         }else{
             this.expression_label.setText("No valid");
         }
-        cliente.writeCSV(name, expression, date, 232);  //Cambiar lo del resultado
 
         cliente.enviar(expression, name, date, type);
         while(cliente.respuesta == false){

@@ -97,7 +97,6 @@ public class Servidor implements Runnable {
                     writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), String.valueOf(Integer.parseInt(show_result)));
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
                 }
-                System.out.println("oal");
                 recibir_datos.close();
             }
         } catch (IOException e) {
