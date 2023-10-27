@@ -1,3 +1,4 @@
-Nombre: Dario, Expresión: ((34+54)+23-1), Fecha: Thu Oct 26 19:52:54 CST 2023, Resultado: 232
-Nombre: Brayan, Expresión: (34+21+5), Fecha: Thu Oct 26 19:56:06 CST 2023, Resultado: 232
-Nombre: Josue, Expresión: (34+21+5), Fecha: Thu Oct 26 19:56:12 CST 2023, Resultado: 232
+Nombre: Dario, Operacion: ((23+23)*2-(23+23)/2), Fecha: Fri Oct 27 00:00:13 CST 2023, Resultado: 69.0
+Nombre: Dario, Operacion: (-22), Fecha: Fri Oct 27 00:00:29 CST 2023, Resultado: -22.0
+Nombre: Dario, Operacion: (-22+(22*2)), Fecha: Fri Oct 27 00:01:04 CST 2023, Resultado: 22.0
+Nombre: Dario, Operacion: (-432+(22*2)), Fecha: Fri Oct 27 00:01:12 CST 2023, Resultado: -388.0

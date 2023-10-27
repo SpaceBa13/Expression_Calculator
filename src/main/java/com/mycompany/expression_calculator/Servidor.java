@@ -19,6 +19,7 @@ import java.util.Date;
  */
 public class Servidor implements Runnable {
     int puerto;
+    CSV_Manage csvServer;
 
     /**
      * Constructor
@@ -26,6 +27,7 @@ public class Servidor implements Runnable {
      */
     public Servidor(int puerto) {
         this.puerto = puerto;
+        csvServer = new CSV_Manage();
     }
 
     /**
@@ -58,11 +60,6 @@ public class Servidor implements Runnable {
         L_Tree arboll = new L_Tree(expression);
         Boolean result = arboll.EvaluateExpression();
         return result;
-    }
-
-    public void writeCSV(String nombre, String operacion, Date fecha, String respuesta){
-        CSV_Manage csv = new CSV_Manage();
-        csv.writeCSV("file.csv", nombre, operacion, fecha, respuesta);
     }
 
     /**
@@ -110,24 +107,22 @@ public class Servidor implements Runnable {
                 paquete_entrante = recibido_json.readValue(lectura_json, Paquete_Datos.class);
 
                 System.out.println("Mensaje recibido del cliente:" + paquete_entrante);
-
                 int puerto_cliente = paquete_entrante.getPuerto_propio();
+                String expresion = paquete_entrante.getOperacion();
 
                 if(paquete_entrante.getTipo() == true){
                     Boolean result = crear_arbol_logico(paquete_entrante.getOperacion());
                     String show_result = result.toString();
                     paquete_entrante.setOperacion(show_result);
-//                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), show_result);
+                    csvServer.writeCSV("file.csv", paquete_entrante.getNombre(), expresion, paquete_entrante.getFecha(), show_result);
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
                 }else{
                     Double result = crear_arbol_aritmetico(paquete_entrante.getOperacion());
                     String show_result = result.toString();
                     paquete_entrante.setOperacion(show_result);
-//                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), String.valueOf(Integer.parseInt(show_result)));
+                    csvServer.writeCSV("file.csv", paquete_entrante.getNombre(), expresion, paquete_entrante.getFecha(), show_result);
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
                 }
-
-
 
                 recibir_datos.close();
             }

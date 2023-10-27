@@ -5,6 +5,7 @@
 package com.mycompany.expression_calculator;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Date;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -155,7 +156,6 @@ public class Ventana extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(7, 7, 7)
                 .addComponent(jLabel1)
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -234,20 +234,30 @@ public class Ventana extends javax.swing.JFrame {
         cliente.respuesta = false;
         this.result_label.setText(cliente.operacion);
 
-        System.out.println(cliente.fecha);
-
 
     }//GEN-LAST:event_send_buttonActionPerformed
 
-    private void foto_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_foto_buttonActionPerformed
-        // TODO add your handling code here:
+    private void foto_buttonActionPerformed(java.awt.event.ActionEvent evt) {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                final Camera camera = new Camera();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        camera.startCamera();
+
+                    }
+                }).start();
+            }
+        });
+
     }//GEN-LAST:event_foto_buttonActionPerformed
 
-    private void request_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_request_buttonActionPerformed
+    private void request_buttonActionPerformed(java.awt.event.ActionEvent evt) {
         CSV_Manage csvread = new CSV_Manage();
-        csvread.readCSV("file.csv");
-    }//GEN-LAST:event_request_buttonActionPerformed
-
+        csvread.readCSV("file.csv", name_label.getText()); // Modify the readCSV method to return content
+    }
     /**
      * @param args the command line arguments
      */

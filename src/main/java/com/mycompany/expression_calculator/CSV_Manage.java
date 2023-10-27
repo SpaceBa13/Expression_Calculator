@@ -7,23 +7,31 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
-
+/**
+ * @author Darga19
+ * Esta clase sera la encargada de manejar el uso del csv, escribir en el y leer el archivo
+ */
 public class CSV_Manage {
 
     private BufferedReader lector;
     private String linea;
     private String partes[];
 
+    /**
+     * @param file El archivo de guardado
+     * @param nombre El nombre del usuario
+     * @param operacion La operacion a calcular
+     * @param fecha La fecha en la que se hizo
+     * @param respuesta La operacion resuelta
+     */
     void writeCSV(String file, String nombre, String operacion, Date fecha, String respuesta) {
         try {
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            printWriter.println("Nombre: "+ nombre + "\n" + "Expresión: " + operacion + "\n" + "Fecha: " + fecha + "\n" + "Resultado: " + respuesta + "\n");
+            printWriter.println("Nombre: "+ nombre + ", " + "Operacion: " + operacion + ", " + "Fecha: " + fecha + ", " + "Resultado: " + respuesta);
             printWriter.flush();
             printWriter.close();
         } catch (IOException e) {
@@ -31,13 +39,21 @@ public class CSV_Manage {
         }
     }
 
-    public void readCSV(String file) {
+    /**
+     * @param file El archivo en el que se escribe
+     * @param nombre El nombre del usuario
+     * @return
+     */
+    public String readCSV(String file, String nombre) {
         try {
             lector = new BufferedReader(new FileReader(file));
             while ((linea = lector.readLine()) != null) {
                 partes = linea.split(" , ");
-                imprimirLinea();
-                System.out.println();
+
+                if (nombre.isEmpty() || linea.contains("Nombre: " + nombre)) {
+                    imprimirLinea();
+                    System.out.println();
+                }
             }
             lector.close();
             linea = null;
@@ -45,37 +61,15 @@ public class CSV_Manage {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
+        return file;
     }
 
+    /**
+     * Funcion auxiliar para iprimir una línea del csv
+     */
     public void imprimirLinea() {
         for (int i = 0; i < partes.length; i++) {
             System.out.println(partes[i] + "");
         }
     }
 }
-//    String generateRandomName() {
-//        String[] names = {"Alice", "Bob", "Charlie", "David", "Emma", "Frank", "Grace", "Hannah"};
-//        Random random = new Random();
-//        int index = random.nextInt(names.length);
-//        return names[index];
-//    }
-//
-//    String generateRandomDate() {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//        long startDate = new Date().getTime();
-//        long randomDate = (long) (Math.random() * (365 * 24 * 60 * 60 * 1000));
-//        Date date = new Date(startDate - randomDate);
-//        return dateFormat.format(date);
-//    }
-//
-//    public static void main(String[] args) throws IOException {
-//        CSV_Manage prueba = new CSV_Manage();
-//
-//        String nombre = prueba.generateRandomName();
-//        String operacion = "4 + 3 + 4";
-//        String fecha = prueba.generateRandomDate();
-//        int respuesta = 234;
-//        prueba.writeCSV("file.csv", nombre, operacion, fecha, respuesta);
-//        prueba.readCSV("file.csv");
-//    }
-//}

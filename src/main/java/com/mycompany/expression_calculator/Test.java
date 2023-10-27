@@ -7,22 +7,30 @@ import net.sourceforge.tess4j.TesseractException;
 
 
 public class Test {
-    public static void main(String[] args) {
+    private String text;
+
+    public String image_processed() {
         Tesseract tesseract = new Tesseract();
         try {
 
-            tesseract.setDatapath("E:\\Brayan\\Tareas TEC\\Java (Proyectos)\\Expression_Calculator\\Tess4J-3.4.8-src\\Tess4J\\tessdata");
+            tesseract.setDatapath("C:\\Users\\darig\\OneDrive\\Documentos\\TEC\\Semestre 2\\Algoritmos y Estructuras de Datos I\\Proyecto II\\Expression_Calculator\\Tess4J-3.4.8-src\\Tess4J\\tessdata");
 
-            // the path of your tess data folder
-            // inside the extracted file
+            text = tesseract.doOCR(new File("C:\\Users\\darig\\OneDrive\\Documentos\\TEC\\Semestre 2\\Algoritmos y Estructuras de Datos I\\Proyecto II\\Expression_Calculator\\Images\\photo.jpg"));
 
-            //Imagen que va a buscar para convetir en texto
-            String text = tesseract.doOCR(new File("E:\\Brayan\\Tareas TEC\\Java (Proyectos)\\Expression_Calculator\\Images\\image2.png"));
-
-            // path of your image file
-            System.out.print(text);
+            System.out.println(text);
         } catch (TesseractException e) {
             e.printStackTrace();
         }
+        return null;
     }
+
+    public String getText(){
+        return text;
+    }
+//
+//    public static void main(String[] args) {
+//        Test test = new Test();
+//        test.image_processed();
+//
+//    }
 }
