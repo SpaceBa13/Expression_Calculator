@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 
 /**
  * @author SpaceBa
@@ -40,7 +41,10 @@ public class Servidor implements Runnable {
         return result;
     }
 
-
+    public void writeCSV(String nombre, String operacion, Date fecha, String respuesta){
+        CSV_Manage csv = new CSV_Manage();
+        csv.writeCSV("file.csv", nombre, operacion, fecha, respuesta);
+    }
 
     public void enviar(String IP, Paquete_Datos entrada, int puerto){
         try {
@@ -58,14 +62,13 @@ public class Servidor implements Runnable {
         }
     }
 
-
     @Override
     public void run() {
         String IP = "127.0.0.1";
         String nombre_recibido, resultado_recibido;
         Paquete_Datos paquete_datos = new Paquete_Datos();
         try {
-            ServerSocket servidor = new ServerSocket(11111);
+            ServerSocket servidor = new ServerSocket(12111);
             Socket recibir_datos;
             Paquete_Datos paquete_entrante;
             String lectura_json;
@@ -85,16 +88,15 @@ public class Servidor implements Runnable {
                     Boolean result = crear_arbol_logico(paquete_entrante.getOperacion());
                     String show_result = result.toString();
                     paquete_entrante.setOperacion(show_result);
+                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), show_result);
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
                 }else{
                     Double result = crear_arbol_aritmetico(paquete_entrante.getOperacion());
                     String show_result = result.toString();
                     paquete_entrante.setOperacion(show_result);
+                    writeCSV(paquete_entrante.getNombre(), paquete_entrante.getOperacion(), paquete_entrante.getFecha(), String.valueOf(Integer.parseInt(show_result)));
                     enviar("127.0.0.1", paquete_entrante, puerto_cliente);
                 }
-
-
-
                 recibir_datos.close();
             }
         } catch (IOException e) {

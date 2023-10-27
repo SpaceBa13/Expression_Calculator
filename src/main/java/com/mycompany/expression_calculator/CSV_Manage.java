@@ -18,7 +18,7 @@ public class CSV_Manage {
     private String linea;
     private String partes[];
 
-    void writeCSV(String file, String nombre, String operacion, Date fecha, int respuesta) {
+    void writeCSV(String file, String nombre, String operacion, Date fecha, String respuesta) {
         try {
             FileWriter fileWriter = new FileWriter(file, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
