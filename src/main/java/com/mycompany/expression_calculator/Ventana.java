@@ -241,12 +241,11 @@ public class Ventana extends javax.swing.JFrame {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                final Camera camera = new Camera();
+                final Camera camera = new Camera(expression_label);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
                         camera.startCamera();
-
                     }
                 }).start();
             }

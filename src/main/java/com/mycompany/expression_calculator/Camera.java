@@ -5,44 +5,43 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
+
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.videoio.VideoCapture;
 
+/**
+ * Esta clase se encarga de la cámara, tomar foto y que se analice el texto por una expresión matematica.
+ * @author darig
+ */
 public class Camera extends JFrame {
 
-    private JLabel expression_label;
+    public JTextField expression_label;
     private JLabel cameraScreen;
     private JButton btnCapture;
     private VideoCapture capture;
     private Mat image;
     private String text;
 
-    public Camera(JLabel expression_label) {
-        JLabel expressionLabel;
-
-        this.expression_label = expressionLabel;
+    public Camera(JTextField expression_label) {
+        this.expression_label = expression_label;
         // Load OpenCV library
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-
         // Initialize UI
         setLayout(null);
-
         cameraScreen = new JLabel();
         cameraScreen.setBounds(0, 0, 640, 480);
         add(cameraScreen);
-
         btnCapture = new JButton("Capture");
         btnCapture.setBounds(300, 480, 80, 40);
         add(btnCapture);
-
         btnCapture.addActionListener(new ActionListener() {
+            /**
+             * @param e the event to be processed
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 captureImage();
@@ -55,11 +54,12 @@ public class Camera extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * Mantiene en un loop la cámara y constantemente tira una imagen
+     */
     public void startCamera() {
         capture = new VideoCapture(0);
         image = new Mat();
-
-        // Continuously read and display frames from the camera
         while (true) {
             capture.read(image);
             ImageIcon icon = new ImageIcon(Mat2BufferedImage(image));
@@ -67,26 +67,34 @@ public class Camera extends JFrame {
         }
     }
 
+    /**
+     * Se encarga de tomar la foto, analizar esa foto y cambiar el label por lo que saque de la imagen.
+     */
     public void captureImage() {
         if (capture.read(image)) {
             MatOfByte buf = new MatOfByte();
             Imgcodecs.imencode(".jpg", image, buf);
             byte[] imageData = buf.toArray();
-            // Optionally save the image to a file
             Imgcodecs.imwrite("images/photo.jpg", image);
         }
         Test tess = new Test();
         tess.image_processed();
         text = tess.getText();
-        expression_label.setText(camera.getText());
+        expression_label.setText(tess.getText());
         dispose();
     }
 
+    /**
+     * @return el texto de la imagen que analice
+     */
     public String getText(){
         return text;
     }
 
-    // Helper method to convert Mat to BufferedImage
+    /**
+     * @param mat
+     * @return la imagen que tomo
+     */
     public static BufferedImage Mat2BufferedImage(Mat mat) {
         int type = BufferedImage.TYPE_BYTE_GRAY;
         if (mat.channels() > 1) {
