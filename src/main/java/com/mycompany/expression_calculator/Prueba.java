@@ -2,6 +2,11 @@ package com.mycompany.expression_calculator;
 
 import java.util.Date;
 
+
+/**
+ * Clase de prueba
+ * @author SpaceBa
+ */
 public class Prueba {
 
     public static void main(String[] args) {

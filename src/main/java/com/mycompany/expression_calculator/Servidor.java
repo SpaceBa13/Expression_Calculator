@@ -13,9 +13,9 @@ import java.net.Socket;
 import java.util.Date;
 
 /**
- * @author SpaceBa
  * Esta clase sera el servidor que maneje la logica de la creacion de los arboles
  * tiene como atributo unicamente el puerto
+ * @author SpaceBa
  */
 public class Servidor implements Runnable {
     int puerto;

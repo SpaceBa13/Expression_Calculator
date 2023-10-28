@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- *
+ * Encargada de manejar el paquete de datos que se pasa de cliente-servidor
  * @author SpaceBa
  */
 public class Paquete_Datos implements Serializable {

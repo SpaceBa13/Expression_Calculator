@@ -10,8 +10,8 @@ import java.io.PrintWriter;
 import java.util.Date;
 
 /**
- * @author darig
  * Esta clase sera la encargada de manejar el uso del csv, escribir en el y leer el archivo
+ * @author darig
  */
 public class CSV_Manage {
 
