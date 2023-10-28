@@ -7,8 +7,8 @@ import net.sourceforge.tess4j.TesseractException;
 
 
 /**
- * @author darig
  * Encargada de analizar una imagen por medio de la librería tesseract.
+ * @author darig
  */
 public class Test {
     private String text;

@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * Ventana principal de la calculadora
  * @author SpaceBa
  */
 public class Ventana extends javax.swing.JFrame {
